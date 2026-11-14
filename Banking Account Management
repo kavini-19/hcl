@@ -1,0 +1,63 @@
+
+import java.util.Scanner;
+
+class BankAccount {
+    int accountNumber;
+    double balance;
+
+    BankAccount(int number, double balance) {
+        this.accountNumber = number;
+        this.balance = balance;
+    }
+
+    double calculateFinalBalance() {
+        return balance;
+    }
+}
+
+class SavingsAccount extends BankAccount {
+    double interestRate;
+
+    SavingsAccount(int number, double balance, double rate) {
+        super(number, balance);
+        interestRate = rate;
+    }
+
+    double calculateFinalBalance() {
+        return balance + (balance * interestRate / 100);
+    }
+}
+
+class CurrentAccount extends BankAccount {
+    double overdraftLimit;
+
+    CurrentAccount(int number, double balance, double limit) {
+        super(number, balance);
+        overdraftLimit = limit;
+    }
+
+    double calculateFinalBalance() {
+        return balance + overdraftLimit;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int type = sc.nextInt();
+        int number = sc.nextInt();
+        double balance = sc.nextDouble();
+        double value = sc.nextDouble();
+
+        BankAccount account;
+
+        if (type == 1) {
+            account = new SavingsAccount(number, balance, value);
+        } else {
+            account = new CurrentAccount(number, balance, value);
+        }
+
+        System.out.printf("%.2f", account.calculateFinalBalance());
+    }
+}
